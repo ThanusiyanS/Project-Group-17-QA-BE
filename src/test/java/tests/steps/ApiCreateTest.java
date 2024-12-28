@@ -1,4 +1,4 @@
-package tests;
+package tests.steps;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -15,7 +15,7 @@ public class ApiCreateTest {
     @Test
     public void testAddBookWithAdmin() {
         // Admin credentials
-        String newBook = "{\"title\": \"New Book 8\", \"author\": \"Nick P\"}";
+        String newBook = "{\"title\": \"New Book 111\", \"author\": \"Nick P\"}";
 
         given()
                 .auth().preemptive().basic("admin", "password")
