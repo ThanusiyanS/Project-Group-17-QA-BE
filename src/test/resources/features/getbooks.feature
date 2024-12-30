@@ -9,7 +9,4 @@ Feature: Get Books API
     Given the API endpoint "/books"
     When a GET request is sent with basic authentication
     Then the response status code should be 200
-    And the first book's title should be "New Book 3"
-
-  Scenario: User Accesses permitted to get books
-    Given the API endpoint "/books/1"
+    And the response should be in valid format

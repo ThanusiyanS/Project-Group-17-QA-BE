@@ -1,0 +1,1 @@
+Verified response is a list of books with required fields (id, title, author)
