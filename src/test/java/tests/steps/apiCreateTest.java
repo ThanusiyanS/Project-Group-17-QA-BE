@@ -25,6 +25,10 @@ public class apiCreateTest {
 
     Book bookWithoutTitle = new Book(null, "mee");
 
+    Book bookWithoutAuthor = new Book("NewBook", null);
+
+    Book bookWithoutTitleAndAuthor = new Book(null, null);
+
     @Given("The user logged as a {string} in the system")
     public void theUserLoggedInTheSystem(String username) {
         this.username=username;
@@ -106,6 +110,61 @@ public class apiCreateTest {
 
     @Then("the response should contain error message for duplicate {string}")
     public void theResponseShouldContainErrorMessageForDuplicate(String errorMessage) {
+        response.then()
+                .assertThat()
+                .body("error", equalTo(errorMessage));
+
+        Allure.addAttachment("Error Details", response.getBody().asString());
+    }
+
+    //4th test case
+    @When("I send a POST request to {string} without author")
+    public void iSendAPostRequestWithMissingAuthor(String endpoint) {
+
+        response= RestAssured.given()
+                .auth()
+                .preemptive()
+                .basic("admin", "password")
+                .contentType(ContentType.JSON)
+                .body(bookWithoutAuthor)
+                .when()
+                .post(endpoint);
+    }
+
+    @Then("the response status code of post without Author should be {int}")
+    public void theResponseStatusCodeWithOutAuthor(int statusCode) {
+        assertThat(response.getStatusCode(), equalTo(statusCode));
+    }
+
+    @Then("the response should contain error message for no author {string}")
+    public void theResponseShouldContainErrorMessageForWithoutAuthor(String errorMessage) {
+        response.then()
+                .assertThat()
+                .body("error", equalTo(errorMessage));
+
+        Allure.addAttachment("Error Details", response.getBody().asString());
+    }
+
+    //5th test case
+    @When("I send a POST request to {string} with null body")
+    public void iSendAPostRequestWithOutData(String endpoint) {
+
+        response= RestAssured.given()
+                .auth()
+                .preemptive()
+                .basic("admin", "password")
+                .contentType(ContentType.JSON)
+                .body(bookWithoutTitleAndAuthor)
+                .when()
+                .post(endpoint);
+    }
+
+    @Then("the response status code for no data should be {int}")
+    public void theResponseStatusCodeForEmpty(int statusCode) {
+        assertThat(response.getStatusCode(), equalTo(statusCode));
+    }
+    @Then("the response should contain error message for no data {string}")
+    public void theResponseShouldContainErrorMessageForEmpty(String errorMessage) {
         response.then()
                 .assertThat()
                 .body("error", equalTo(errorMessage));
