@@ -21,7 +21,7 @@ public class SetupData {
         addBook(book3);
         System.out.println("Added");
 
-        clearDataBase();
+//        clearDataBase();
 
     }
 
