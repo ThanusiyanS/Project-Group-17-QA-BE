@@ -17,7 +17,7 @@ public class ApiDeleteTest {
     @Given("the book with ID {int} exists in the system")
     public void theBookWithIDExistsInTheSystem(int id) {
          response = RestAssured.given()
-                .auth().basic("admin", "password")
+                .auth().basic(username, PASSWORD)
                 .get("/books/" + id);
         assertThat(response.getStatusCode(), equalTo(200));
     }
@@ -38,7 +38,7 @@ public class ApiDeleteTest {
     @Then("the book with ID {int} should not exist in the system")
     public void theBookWithIDShouldNotExistInTheSystem(int id) {
         Response response = RestAssured.given()
-                .auth().basic("admin", "password")
+                .auth().basic(username, PASSWORD)
                 .get("/books/" + id);
         assertThat(response.getStatusCode(), equalTo(404));
     }

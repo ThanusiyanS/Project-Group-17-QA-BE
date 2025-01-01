@@ -1,7 +1,8 @@
 Feature: Delete Book API Testing
 
   Scenario: Delete an existing book by ID
-    Given the book with ID 1 exists in the system
+    Given the user logged as a "admin" in the system
+    And the book with ID 1 exists in the system
     When the user sends a DELETE request to "/books/1"
     Then the response status code of delete should be 200
     And the book with ID 1 should not exist in the system
