@@ -21,4 +21,15 @@ Feature: Book Creation API Testing
     And the response should contain error message for duplicate "Duplicate entry"
 
 
+  @BUG-6
+  Scenario: Create a book with missing fields
+    Given The user logged as a "admin" in the system
+    When I send a POST request to "/books" without author
+    Then the response status code of post without Author should be 400
+    And the response should contain error message for no author "Invalid input"
 
+  Scenario: Create a book without details
+    Given The user logged as a "admin" in the system
+    When I send a POST request to "/books" with null body
+    Then the response status code for no data should be 400
+    And the response should contain error message for no data "Invalid parameters"
