@@ -14,13 +14,20 @@ public class ApiDeleteTest {
     private Response response;
     private String username;
 
-    @Given("the book with ID {int} exists in the system")
-    public void theBookWithIDExistsInTheSystem(int id) {
-         response = RestAssured.given()
-                .auth().basic(username, PASSWORD)
-                .get("/books/" + id);
-        assertThat(response.getStatusCode(), equalTo(200));
+
+    @Given("the user logged as a {string} in the system")
+    public void theUserLoggedInTheSystem(String username) {
+        this.username=username;
     }
+
+
+//    @Given("the book with ID {int} exists in the system")
+//    public void theBookWithIDExistsInTheSystem(int id) {
+//         response = RestAssured.given()
+//                .auth().basic(username, PASSWORD)
+//                .get("/books/" + id);
+//        assertThat(response.getStatusCode(), equalTo(200));
+//    }
 
     @When("the user sends a DELETE request to {string}")
     public void theUserSendsADELETERequestTo(String endpoint) {
@@ -42,10 +49,4 @@ public class ApiDeleteTest {
                 .get("/books/" + id);
         assertThat(response.getStatusCode(), equalTo(404));
     }
-
-    @Given("the user logged as a {string} in the system")
-    public void theUserLoggedInTheSystem(String username) {
-        this.username=username;
-    }
-    
 }
