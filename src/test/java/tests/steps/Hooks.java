@@ -8,6 +8,7 @@ public class Hooks {
     @Before
     public void setup() {
         RestAssured.baseURI = "http://localhost:7081/api";
+//        SetupData.clearDataBase();
         SetupData.createBooks();
     }
 }

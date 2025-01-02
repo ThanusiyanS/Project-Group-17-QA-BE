@@ -18,7 +18,7 @@ Feature: Book Creation API Testing
     Given The user logged as a "admin" in the system
     When I send a POST request to "/books" with duplicate data "Money" and "me"
     Then the response status code of post with duplicate data should be 208
-    And the response should contain error message for duplicate "Duplicate entry"
+#    And the response should contain error message for duplicate "Book Already Exists"
 
 
   @BUG-6

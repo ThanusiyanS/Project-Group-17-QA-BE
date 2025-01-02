@@ -9,7 +9,9 @@ import org.testng.annotations.BeforeClass;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"tests.steps"},
-        plugin = {"pretty", "html:target/cucumber-reports"},
+        plugin = {
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+        },
         monochrome = true
 )
 public class TestRunner extends AbstractTestNGCucumberTests {

@@ -6,8 +6,10 @@ import io.cucumber.java.en.When;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
+import static org.example.configs.TestConfig.PASSWORD;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -16,19 +18,25 @@ import static org.hamcrest.Matchers.empty;
 public class ApiGetTest {
 
     private String endpoint;
+    private RequestSpecification request;
     private Response response;
 
-    @Given("the API endpoint {string}")
+    @Given("User authorized as a valid {string}")
+    public void userAuthorizedAsAValid(String user) {
+        request = RestAssured.given()
+                .auth()
+                .preemptive()
+                .basic(user, PASSWORD);
+    }
+
+    @Given("the GET API endpoint {string}")
     public void theApiEndpoint(String endpoint) {
         this.endpoint = endpoint;
     }
 
     @When("a GET request is sent with basic authentication")
     public void theApiEndpoint() {
-        response = RestAssured.given()
-                .auth()
-                .preemptive()
-                .basic("user", "password")
+        response = request
                 .when()
                 .get(endpoint);
         // Test other user-accessible endpoints
@@ -39,7 +47,7 @@ public class ApiGetTest {
         assertThat(response.getStatusCode(), equalTo(statusCode));
     }
 
-    @Then("the response should be in valid format")
+    @Then("the list of books should be in valid format")
     public void verifyBookDetails() {
         response.then()
                 .assertThat()
@@ -53,6 +61,22 @@ public class ApiGetTest {
         Allure.addAttachment(
                 "Validation Details",
                 "Verified response is a list of books with required fields (id, title, author)"
+        );
+    }
+
+    @Then("the book data should be in valid format")
+    public void verifyBookData() {
+        response.then()
+                .assertThat()
+                .body("id", notNullValue())
+                .body("title", notNullValue())
+                .body("author", notNullValue());
+
+        Allure.addAttachment(
+                "Validation Details",
+                "Verified response is a book with required fields" +
+                        "]]" +
+                        " (id, title, author)"
         );
     }
 
