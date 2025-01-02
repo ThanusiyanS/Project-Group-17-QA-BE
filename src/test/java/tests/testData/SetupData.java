@@ -12,16 +12,14 @@ public class SetupData {
 
     public static void createBooks(){
 
-        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald");
-        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee");
-        Book book3 = new Book("1984", "George Orwell");
+        Book book1 = new Book(1,"The Great Gatsby", "F. Scott Fitzgerald");
+        Book book2 = new Book(2,"To Kill a Mockingbird", "Harper Lee");
+        Book book3 = new Book(3,"1984", "George Orwell");
 
         addBook(book1);
         addBook(book2);
         addBook(book3);
-        System.out.println("Added");
-
-//        clearDataBase();
+//        System.out.println("Added");
 
     }
 
@@ -31,7 +29,7 @@ public class SetupData {
 
 
         if(response.getStatusCode() == 200){
-            System.out.println(response.body().print());
+            response.jsonPath().getList("id").forEach(id -> deletBook(id.toString()));
         }
 
     }
