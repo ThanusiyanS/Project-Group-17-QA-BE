@@ -33,3 +33,9 @@ Feature: Book Creation API Testing
     When I send a POST request to "/books" with null body
     Then the response status code for no data should be 400
     And the response should contain error message for no data "Invalid parameters"
+
+  Scenario: Create a book with unauthorized user
+    Given The user with unauthorized credentials
+    When User send a POST request to "/books" with data
+    Then the response of unauthorized status code should be 401
+

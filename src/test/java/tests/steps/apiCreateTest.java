@@ -7,6 +7,7 @@ import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.example.DTO.Book;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -18,6 +19,7 @@ public class apiCreateTest {
     private Response response;
     private String username;
     private String requestBody;
+    private RequestSpecification request;
 
     Book newBook = new Book("Moneyy", "mee");
 
@@ -170,5 +172,26 @@ public class apiCreateTest {
                 .body("error", equalTo(errorMessage));
 
         Allure.addAttachment("Error Details", response.getBody().asString());
+    }
+
+    @Given("The user with unauthorized credentials")
+    public void theUserLoggedAsRoleInTheSystem() {
+        // Determine the token based on user role
+        request = RestAssured.given()
+                .header("Content-Type", "application/json");
+    }
+
+    @When("User send a POST request to {string} with data")
+    public void iSendAPOSTRequestWithData(String endpoint) {
+        // Create request body
+
+        // Send POST request
+        response = request.body(newBook).post(endpoint);
+    }
+
+    @Then("the response of unauthorized status code should be {int}")
+    public void theUnauthorizedResponseStatusCodeShouldBe(int statusCode) {
+        // Assert status code
+        assertThat(response.getStatusCode(), equalTo(statusCode));
     }
 }
