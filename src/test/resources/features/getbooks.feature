@@ -13,6 +13,8 @@ Feature: Get Books API
     Then the response status code should be 200
     And the list of books should be in valid format
 
+
+  @SEVERITY:critical
   @BUG-G001
   Scenario: Retrieve a book with valid credentials
     Given User authorized as a valid "user"
