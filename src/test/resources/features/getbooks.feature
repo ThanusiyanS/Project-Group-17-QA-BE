@@ -13,7 +13,7 @@ Feature: Get Books API
     Then the response status code should be 200
     And the list of books should be in valid format
 
-  @BUG-D007
+  @BUG-G007
   Scenario: Retrieve a book with valid credentials
     Given User authorized as a valid "admin"
     And the GET API endpoint "/books/1"
