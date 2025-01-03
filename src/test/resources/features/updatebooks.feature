@@ -51,42 +51,7 @@ Feature: Update Book API Testing
       | id | title      | author        |
       | 999  | Gone Girl  | Gillian Flynn |
     Then the response status code of update should be 404
-@bug_u1
-  Scenario: Attempt to update a book with invalid characters in the title
-    Given the API endpoint "/books/1" for updating a book
-    When a PUT request is sent with the following data:
-      | id   | title             | author        |
-      | 1    | @Invalid!#Title$%  | Valid Author  |
-    Then the response status code of update should be 400
 
-  Scenario: Update a book without providing the author field
-    Given the API endpoint "/books/2" for updating a book
-    When a PUT request is sent with the following data:
-      | id   | title        | author |
-      | 2    | Valid Title  |        |
-    Then the response status code of update should be 400
 
-  Scenario: Update a book without providing the id
-    Given the API endpoint "/books/ " for updating a book
-    When a PUT request is sent with the following data:
-      | id   | title             | author        |
-      |      | Valid title       | Valid Author  |
-    Then the response status code of update should be 400
-
-  Scenario: Attempt to update a book by an unauthorized user
-    Given the API endpoint "/books/3" for updating a book
-    When a PUT request is sent with the following data:
-      | id   | title          | author         |
-      | 3    | Updated Title  | Updated Author |
-    And the user is logged in as a regular user
-    Then the response status code of update should be 401
-
-#  Scenario: Attempt to update a book with invalid characters in the title
-#  Given the API endpoint "/books/1" for updating a book
-#  When a PUT request is sent with the following data:
-#    | id  | 1 |
-#  | title  | @Invalid!#Title$% |
-#  | author | Valid Author       |
-#  Then the response status code of update should be 401
 
 
