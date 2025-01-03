@@ -1,5 +1,6 @@
 Feature: Update Book API Testing
 
+  @BUG-U008
   Scenario: Update a book with valid data
     Given the API endpoint "/books/1" for updating a book
     When a PUT request is sent with the following data:
