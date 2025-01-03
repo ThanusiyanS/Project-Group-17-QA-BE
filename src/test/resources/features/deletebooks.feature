@@ -1,12 +1,14 @@
 Feature: Delete Book API Testing
 
   @BUG-D001
+  @SEVERITY:Critical
   Scenario: Delete an existing book by ID using the admin credentials
     Given the user logged as a "admin" in the system
     When the user sends a DELETE request to "/books/1"
     Then the response status code of delete should be 200
 
   @BUG-D002
+  @SEVERITY:Critical
   Scenario: Delete an existing book by ID using the user credentials
     Given the user logged as a "user" in the system
     When the user sends a DELETE request to "/books/2"
@@ -14,6 +16,7 @@ Feature: Delete Book API Testing
     And the response should contain error message "User is not permitted."
 
   @BUG-D003
+  @SEVERITY:Medium
   Scenario: Attempt to delete a non-existing book by ID using the admin credentials
     Given the user logged as a "admin" in the system
     When the user sends a DELETE request to "/books/999"

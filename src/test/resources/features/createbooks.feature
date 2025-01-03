@@ -6,7 +6,9 @@ Feature: Book Creation API Testing
     Then the response status code of post should be 201
     And the response should contain the book
 
-  @BUG-P004
+
+  @BUG-P001
+  @SEVERITY:Critical
   Scenario: Create a book with missing fields using the admin credentials
     Given The user logged as a "admin" in the system
     When I send a POST request to "/books" without title
@@ -20,14 +22,16 @@ Feature: Book Creation API Testing
     Then the response status code of post with duplicate data should be 208
 
 
-  @BUG-P005
+  @BUG-P002
+  @SEVERITY:Critical
   Scenario: Create a book with missing fields using the admin credentials
     Given The user logged as a "admin" in the system
     When I send a POST request to "/books" without author
     Then the response status code of post without Author should be 400
     And the response should contain error message for no author "Invalid input"
 
-  @BUG-P006
+  @BUG-P003
+  @SEVERITY:Medium
   Scenario: Create a book without details using the admin credentials
     Given The user logged as a "admin" in the system
     When I send a POST request to "/books" with null body
