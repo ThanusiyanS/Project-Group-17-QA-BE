@@ -26,6 +26,15 @@ Feature: Update Book API Testing
     Then the response status code of update should be 400
     And the response message should indicate "Invalid data provided"
 
+  @BUG-U009
+  Scenario: Attempt to update a book with excessive payload size
+    Given the API endpoint "/books/5" for updating a book
+    When a PUT request is sent with the following data:
+      | title      | author        |
+      | <very long string> | <very long string> |
+    Then the response status code of update should be 413
+    And the response message should indicate "Payload too large"
+
   Scenario: Attempt to update a book with invalid characters in the title
     Given the API endpoint "/books/1" for updating a book
     When a PUT request is sent with the invalid characters
