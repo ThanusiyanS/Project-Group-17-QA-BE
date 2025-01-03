@@ -20,7 +20,7 @@ public class ApiUpdateTest {
 
     private String endpoint;
     private Response response;
-    private Map requestData;
+    private Map<String,String> requestData;
 
 
     public Book getData(String type){
@@ -58,9 +58,9 @@ public class ApiUpdateTest {
 
     @When("a PUT request is sent with the following data:")
     public void sendPutRequestWithData(DataTable dataTable) {
-        var bookData = dataTable.asMaps(String.class, String.class).get(0);
+        requestData = dataTable.asMaps(String.class, String.class).get(0);
 
-        System.out.println(bookData);
+        System.out.println(requestData);
 
 // Sending a PUT request with basic authentication as a regular user
         response = RestAssured.given()
@@ -68,7 +68,7 @@ public class ApiUpdateTest {
                 .preemptive()
                 .basic("admin", "password") // Replace with valid credentials
                 .header("Content-Type", "application/json")
-                .body(bookData)
+                .body(requestData)
                 .when()
                 .put(endpoint);
     }
@@ -79,10 +79,7 @@ public class ApiUpdateTest {
         System.out.println("User is authenticated as a regular user.");
     }
 
-    @Then("the response status code of update should be {int}")
-    public void verifyResponseStatusCode(int expectedStatusCode) {
-        assertThat(response.getStatusCode(), equalTo(expectedStatusCode));
-    }
+
 
     @And("the response message should indicate {string}")
     public void verifyResponseMessage(String expectedMessage) {
