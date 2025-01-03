@@ -1,6 +1,7 @@
 Feature: Update Book API Testing
 
-  @BUG-U008
+  @BUG-U001
+  @SEVERITY:Medium
   Scenario: Update a book with valid data
     Given the API endpoint "/books/1" for updating a book
     When a PUT request is sent with the following data:
@@ -26,7 +27,8 @@ Feature: Update Book API Testing
     Then the response status code of update should be 400
     And the response message should indicate "Invalid data provided"
 
-  @BUG-U009
+  @BUG-U002
+  @SEVERITY:Medium
   Scenario: Attempt to update a book with excessive payload size
     Given the API endpoint "/books/5" for updating a book
     When a PUT request is sent with the following data:
