@@ -1,7 +1,7 @@
 Feature: Update Book API Testing
 
   @BUG-U001
-  @SEVERITY:Medium
+  @SEVERITY:Critical
   Scenario: Update a book with valid data
     Given the API endpoint "/books/1" for updating a book
     When a PUT request is sent with the following data:
