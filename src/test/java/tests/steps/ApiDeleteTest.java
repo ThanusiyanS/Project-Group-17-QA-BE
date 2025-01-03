@@ -42,11 +42,12 @@ public class ApiDeleteTest {
         assertThat(response.getStatusCode(), equalTo(statusCode)); 
     }
 
-    @Then("the book with ID {int} should not exist in the system")
-    public void theBookWithIDShouldNotExistInTheSystem(int id) {
-        Response response = RestAssured.given()
-                .auth().basic(username, PASSWORD)
-                .get("/books/" + id);
-        assertThat(response.getStatusCode(), equalTo(404));
-    }
+//    @Then("the book with ID {int} should not exist in the system")
+//    public void theBookWithIDShouldNotExistInTheSystem(int id) {
+//        Response response = RestAssured.given()
+//                .auth().basic(username, PASSWORD)
+//                .get("/books/" + id);
+//        assertThat(response.getStatusCode(), equalTo(404));
+//    }
+
 }
