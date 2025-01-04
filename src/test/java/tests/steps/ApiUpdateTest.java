@@ -41,9 +41,6 @@ public class ApiUpdateTest {
 
     @When("a PUT request is sent with the {string}")
     public void sendPutRequestWithDataX(String type) {
-// this.requestData = data;
-// System.out.println(data);
-        Book validData = new Book(1,"The Great ", "F. Scott Fitzgerald");
 
 // Sending a PUT request with basic authentication as a regular user
         response = RestAssured.given()
@@ -60,7 +57,7 @@ public class ApiUpdateTest {
     public void sendPutRequestWithData(DataTable dataTable) {
         requestData = dataTable.asMaps(String.class, String.class).get(0);
 
-        System.out.println(requestData);
+
 
 // Sending a PUT request with basic authentication as a regular user
         response = RestAssured.given()
@@ -87,12 +84,12 @@ public class ApiUpdateTest {
                 .assertThat()
                 .body("error", equalTo(expectedMessage));
 
-// Debug log for verification
-        System.out.println("Response: " + response.getBody().asString());
     }
 
     @Then("the response should contain updated details")
     public void verifyUpdatedDetails() {
+
+
 // Verify the response body contains the updated title and author
         response.then()
                 .assertThat()
@@ -108,7 +105,9 @@ public class ApiUpdateTest {
     }
 
     @Then("the response status code of update should be {int}")
-    public void theResponseStatusCodeOfUpdateShouldBe(int arg0) {
+    public void theResponseStatusCodeOfUpdateShouldBe(int code) {// Assert that the response status code matches the expected value
+        assertThat(response.getStatusCode(), equalTo(code));
+
     }
 
     @When("a PUT request is sent with the invalid characters")
